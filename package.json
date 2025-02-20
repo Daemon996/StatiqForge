@@ -1,5 +1,5 @@
 {
-  "name": "statiq",
+  "name": "StatiqForge",
   "version": "1.0.0",
   "description": "Convert Markdown files to HTML with header/footer and styling",
   "author": {
@@ -19,8 +19,8 @@
     "electron-builder": "^24.0.0"
   },
   "build": {
-    "appId": "com.nathancourtney.statiq",
-    "productName": "Statiq",
+    "appId": "com.nathancourtney.StatiqForge",
+    "productName": "StatiqForge",
     "directories": {
       "buildResources": "assets"
     },

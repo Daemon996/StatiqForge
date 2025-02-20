@@ -1,6 +1,6 @@
-# Statiq
+# StatiqForge
 
-**Statiq** is a simple and intuitive **Markdown to HTML** converter built with **Electron** and **Node.js**. It provides a smooth, full-window experience, allowing users to select a directory or individual files and generate HTML pages with headers, footers, and styles.
+**StatiqForge** is a simple and intuitive **Markdown to HTML** converter built with **Electron** and **Node.js**. It provides a smooth, full-window experience, allowing users to select a directory or individual files and generate HTML pages with headers, footers, and styles.
 
 The app is designed with a **macOS-inspired aesthetic**, featuring a sleek UI.
 
@@ -26,8 +26,8 @@ Ensure you have the following installed:
 
 ### 🔹 Clone the Repository
 ```sh
-git clone https://github.com/yourusername/statiq.git
-cd statiq
+git clone https://github.com/Daemon996/StatiqForge.git
+cd StatiqForge
 ```
 
 ### 🔹 Install Dependencies
@@ -42,9 +42,9 @@ npm start
 
 ---
 
-## 📦 Packaging Statiq
+## 📦 Packaging StatiqForge
 
-You can package Statiq as a standalone app for **macOS, Windows, or Linux** using `electron-builder`:
+You can package StatiqForge as a standalone app for **macOS, Windows, or Linux** using `electron-builder`:
 
 ```sh
 npm run dist
@@ -86,7 +86,7 @@ Each Markdown file is converted into an `.html` file with the **header and foote
 ---
 
 ## 📜 License
-**MIT License** – You are free to modify and distribute Statiq, with attribution.
+**MIT License** – You are free to modify and distribute StatiqForge, with attribution.
 
 ---
 
@@ -96,4 +96,4 @@ Each Markdown file is converted into an `.html` file with the **header and foote
 
 ---
 
-Enjoy using **Statiq**! 🚀✨
+Enjoy using **StatiqForge**! 🚀✨
