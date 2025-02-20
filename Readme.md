@@ -1,4 +1,4 @@
-# 📄 Statiq
+# Statiq
 
 **Statiq** is a simple and intuitive **Markdown to HTML** converter built with **Electron** and **Node.js**. It provides a smooth, full-window experience, allowing users to select a directory or individual files and generate HTML pages with headers, footers, and styles.
 
@@ -91,7 +91,7 @@ Each Markdown file is converted into an `.html` file with the **header and foote
 ---
 
 ## 📬 Contact
-👤 **Your Name**
+👤 **Nathan Courtney**
 🌐 [dev.nathancourtney.com](https://dev.nathancourtney.com)
 
 ---
