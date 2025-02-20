@@ -2,7 +2,7 @@
 
 **StatiqForge** is a simple and intuitive **Markdown to HTML** converter built with **Electron** and **Node.js**. It provides a smooth, full-window experience, allowing users to select a directory or individual files and generate HTML pages with headers, footers, and styles.
 
-The app is designed with a **macOS-inspired aesthetic**, featuring a sleek UI.
+The app is designed with a **macOS-inspired aesthetic**.
 
 ---
 
