@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Statiq - Step 3: Select footer.md</title>
+        <link rel="stylesheet" href="css/app.css" />
+    </head>
+    <body>
+        <div class="container">
+            <h1>Select footer.md</h1>
+            <p>
+                This Markdown file will be converted to HTML and appended to
+                every page.
+            </p>
+            <button id="selectFooterBtn">Select footer.md</button>
+            <div
+                id="selectedFooterDisplay"
+                style="color: white; margin-top: 10px; display: none"
+            ></div>
+            <br />
+            <button id="backBtn">Back</button>
+            <button id="nextBtn">Next</button>
+            <div id="autoSkipMessage" style="display: none; color: green"></div>
+        </div>
+        <script>
+            const { ipcRenderer } = require("electron");
+            const path = require("path");
+
+            // Auto-skip if footer.md is already provided
+            (async function autoSkip() {
+                const config = await ipcRenderer.invoke("get-global-config");
+                if (config.footerPath) {
+                    document.getElementById("autoSkipMessage").style.display =
+                        "block";
+                    document.getElementById("autoSkipMessage").innerText =
+                        "Footer already provided. Auto-skipping in 3 seconds...";
+                    setTimeout(() => {
+                        window.location = "content.html";
+                    }, 3000);
+                }
+            })();
+
+            document
+                .getElementById("selectFooterBtn")
+                .addEventListener("click", () => {
+                    ipcRenderer.send("select-file", "markdown");
+                });
+
+            ipcRenderer.on("file-selected", (event, data) => {
+                if (data.fileType === "markdown") {
+                    const display = document.getElementById(
+                        "selectedFooterDisplay",
+                    );
+                    display.innerText = path.basename(data.path);
+                    display.style.display = "block";
+                }
+            });
+
+            document.getElementById("backBtn").addEventListener("click", () => {
+                window.location = "header.html";
+            });
+
+            document.getElementById("nextBtn").addEventListener("click", () => {
+                window.location = "content.html";
+            });
+        </script>
+    </body>
+</html>

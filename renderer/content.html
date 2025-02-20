@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Statiq - Step 4: Select Markdown Content</title>
+        <link rel="stylesheet" href="css/app.css" />
+    </head>
+    <body>
+        <div class="container">
+            <h1>Select Markdown Content</h1>
+            <p>
+                Select a Markdown file or a directory containing Markdown files.
+            </p>
+            <button id="selectContentBtn">Select File/Directory</button>
+            <div
+                id="selectedContentDisplay"
+                style="color: white; margin-top: 10px; display: none"
+            ></div>
+            <br />
+            <button id="backBtn">Back</button>
+            <button id="nextBtn">Next</button>
+            <div id="autoSkipMessage" style="display: none; color: green"></div>
+        </div>
+        <script>
+            const { ipcRenderer } = require("electron");
+            const path = require("path");
+
+            // Auto-skip if content is already provided
+            (async function autoSkip() {
+                const config = await ipcRenderer.invoke("get-global-config");
+                if (config.contentPath) {
+                    document.getElementById("autoSkipMessage").style.display =
+                        "block";
+                    document.getElementById("autoSkipMessage").innerText =
+                        "Content already provided. Auto-skipping in 3 seconds...";
+                    setTimeout(() => {
+                        window.location = "style.html";
+                    }, 3000);
+                }
+            })();
+
+            document
+                .getElementById("selectContentBtn")
+                .addEventListener("click", () => {
+                    ipcRenderer.send("select-directory");
+                });
+
+            ipcRenderer.on("directory-selected", (event, dir) => {
+                const display = document.getElementById(
+                    "selectedContentDisplay",
+                );
+                display.innerText = path.basename(dir);
+                display.style.display = "block";
+            });
+
+            document.getElementById("backBtn").addEventListener("click", () => {
+                window.location = "footer.html";
+            });
+
+            document.getElementById("nextBtn").addEventListener("click", () => {
+                window.location = "style.html";
+            });
+        </script>
+    </body>
+</html>

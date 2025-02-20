@@ -1,0 +1,38 @@
+{
+  "name": "statiq",
+  "version": "1.0.0",
+  "description": "Convert Markdown files to HTML with header/footer and styling",
+  "author": {
+    "name": "Nathan Courtney",
+    "url": "https://dev.nathancourtney.com"
+  },
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "dependencies": {
+    "marked": "^5.0.0"
+  },
+  "devDependencies": {
+    "electron": "^24.0.0",
+    "electron-builder": "^24.0.0"
+  },
+  "build": {
+    "appId": "com.nathancourtney.statiq",
+    "productName": "Statiq",
+    "directories": {
+      "buildResources": "assets"
+    },
+    "mac": {
+      "icon": "assets/icons/icon.icns",
+      "identity": null
+    },
+    "win": {
+      "icon": "assets/icons/icon.ico"
+    },
+    "linux": {
+      "icon": "assets/icons/icon.png"
+    }
+  }
+}

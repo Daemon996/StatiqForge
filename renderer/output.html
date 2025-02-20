@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Statiq - Step 6: Select Output Directory</title>
+        <link rel="stylesheet" href="css/app.css" />
+    </head>
+    <body>
+        <div class="container">
+            <h1>Select Output Directory</h1>
+            <p>Choose a folder where the generated HTML files will be saved.</p>
+            <button id="selectOutputBtn">Select Output Directory</button>
+            <div
+                id="selectedOutputDisplay"
+                style="color: white; margin-top: 10px; display: none"
+            ></div>
+            <hr />
+            <h2>Index Page Options</h2>
+            <label for="summaryWordCount">Summary Word Count:</label>
+            <input
+                type="number"
+                id="summaryWordCount"
+                value="30"
+                min="5"
+                max="200"
+            /><br /><br />
+            <label for="defaultAuthor">Default Author (optional):</label>
+            <input
+                type="text"
+                id="defaultAuthor"
+                placeholder="Enter author name"
+            /><br /><br />
+            <label for="includeDateModified">Include Date Modified:</label>
+            <input type="checkbox" id="includeDateModified" /><br /><br />
+            <button id="backBtn">Back</button>
+            <button id="generateBtn">Generate HTML Files</button>
+            <div id="message" style="margin-top: 20px"></div>
+        </div>
+        <script>
+            const { ipcRenderer } = require("electron");
+            const path = require("path");
+            let outputDirectory = null;
+
+            document
+                .getElementById("selectOutputBtn")
+                .addEventListener("click", () => {
+                    ipcRenderer.send("select-output-directory");
+                });
+
+            ipcRenderer.on("output-directory-selected", (event, dir) => {
+                outputDirectory = dir;
+                const display = document.getElementById(
+                    "selectedOutputDisplay",
+                );
+                display.innerText = path.basename(dir);
+                display.style.display = "block";
+            });
+
+            document.getElementById("backBtn").addEventListener("click", () => {
+                window.location = "style.html";
+            });
+
+            document
+                .getElementById("generateBtn")
+                .addEventListener("click", () => {
+                    const summaryWordCount =
+                        document.getElementById("summaryWordCount").value;
+                    const defaultAuthor =
+                        document.getElementById("defaultAuthor").value;
+                    const includeDateModified = document.getElementById(
+                        "includeDateModified",
+                    ).checked;
+                    ipcRenderer.send("generate-html", {
+                        summaryWordCount,
+                        defaultAuthor,
+                        includeDateModified,
+                    });
+                });
+
+            ipcRenderer.on("generation-success", (event, msg) => {
+                document.getElementById("message").innerText = msg;
+            });
+            ipcRenderer.on("error", (event, msg) => {
+                document.getElementById("message").innerText = msg;
+            });
+        </script>
+    </body>
+</html>

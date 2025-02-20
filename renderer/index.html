@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Statiq - Step 1: Select Directory (Optional)</title>
+        <link rel="stylesheet" href="css/app.css" />
+    </head>
+    <body>
+        <div class="container">
+            <h1>Welcome to Statiq</h1>
+            <p>
+                Optionally select a directory containing your Markdown files. If
+                a valid directory is chosen, some steps will be auto-skipped.
+            </p>
+            <button id="selectDirectoryBtn">Select Directory</button>
+            <!-- Initially hidden display -->
+            <div
+                id="selectedDirectoryDisplay"
+                style="color: white; margin-top: 10px; display: none"
+            ></div>
+            <br />
+            <button id="nextBtn">Next</button>
+        </div>
+        <script>
+            const { ipcRenderer } = require("electron");
+            const path = require("path");
+
+            document
+                .getElementById("selectDirectoryBtn")
+                .addEventListener("click", () => {
+                    ipcRenderer.send("select-directory");
+                });
+
+            ipcRenderer.on("directory-selected", (event, dir) => {
+                const display = document.getElementById(
+                    "selectedDirectoryDisplay",
+                );
+                display.innerText = path.basename(dir);
+                display.style.display = "block";
+            });
+
+            document.getElementById("nextBtn").addEventListener("click", () => {
+                window.location = "header.html";
+            });
+        </script>
+    </body>
+</html>

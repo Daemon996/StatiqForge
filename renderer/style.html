@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Statiq - Step 5: Select styles.css (Optional)</title>
+        <link rel="stylesheet" href="css/app.css" />
+    </head>
+    <body>
+        <div class="container">
+            <h1>Select styles.css</h1>
+            <p>
+                If a style file is not already provided, you may select one
+                here.
+            </p>
+            <button id="selectStyleBtn">Select styles.css</button>
+            <div
+                id="selectedStyleDisplay"
+                style="color: white; margin-top: 10px; display: none"
+            ></div>
+            <br />
+            <button id="backBtn">Back</button>
+            <button id="nextBtn">Next</button>
+            <div id="autoSkipMessage" style="display: none; color: green"></div>
+        </div>
+        <script>
+            const { ipcRenderer } = require("electron");
+            const path = require("path");
+
+            // Auto-skip if style file is already provided
+            (async function autoSkip() {
+                const config = await ipcRenderer.invoke("get-global-config");
+                if (config.stylePath) {
+                    document.getElementById("autoSkipMessage").style.display =
+                        "block";
+                    document.getElementById("autoSkipMessage").innerText =
+                        "Style file already provided. Auto-skipping in 3 seconds...";
+                    setTimeout(() => {
+                        window.location = "output.html";
+                    }, 3000);
+                }
+            })();
+
+            document
+                .getElementById("selectStyleBtn")
+                .addEventListener("click", () => {
+                    ipcRenderer.send("select-file", "css");
+                });
+
+            ipcRenderer.on("file-selected", (event, data) => {
+                if (data.fileType === "css") {
+                    const display = document.getElementById(
+                        "selectedStyleDisplay",
+                    );
+                    display.innerText = path.basename(data.path);
+                    display.style.display = "block";
+                }
+            });
+
+            document.getElementById("backBtn").addEventListener("click", () => {
+                window.location = "content.html";
+            });
+
+            document.getElementById("nextBtn").addEventListener("click", () => {
+                window.location = "output.html";
+            });
+        </script>
+    </body>
+</html>
